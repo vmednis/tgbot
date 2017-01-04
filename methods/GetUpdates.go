@@ -2,7 +2,6 @@ package methods
 
 import "tgbot/tgtype"
 import "encoding/json"
-import "fmt"
 
 // GetUpdates - Use this method to receive incoming updates using long polling (wiki). An Array of Update objects is returned.
 type GetUpdates struct {
@@ -21,7 +20,6 @@ func (method GetUpdates) GetName() string {
 func (method *GetUpdates) CallMethod(botURL string) tgtype.TGType {
 	//Call the message under the hood
 	result := callMethod(botURL, method).Result
-	fmt.Println(string(result))
 
 	//Decode the result
 	updateSlice := make([]tgtype.Update, 0)
@@ -29,6 +27,5 @@ func (method *GetUpdates) CallMethod(botURL string) tgtype.TGType {
 
 	var updates tgtype.Updates
 	updates.Updates = updateSlice
-	fmt.Println(updates.Updates[0].Message)
 	return updates
 }

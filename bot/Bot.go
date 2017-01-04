@@ -11,12 +11,13 @@ const BotAPIURL = "https://api.telegram.org/bot"
 
 // Bot stores info about a single bot
 type Bot struct {
-	OnMessage           func(tgtype.Message)
-	OnMessageEdited     func(tgtype.Message)
-	OnChannelPost       func(tgtype.Message)
-	onChannelPostEdited func(tgtype.Message)
+	OnMessage           func(*tgtype.Message)
+	OnMessageEdited     func(*tgtype.Message)
+	OnChannelPost       func(*tgtype.Message)
+	onChannelPostEdited func(*tgtype.Message)
 	APIKey              string
 	running             bool
+	updateOffset        int32
 }
 
 // GetBotURL - returns a telegram api call url only lacking method
@@ -32,10 +33,42 @@ func (bot *Bot) RunBot() {
 	}
 	bot.running = true
 	for {
+		//Request the new updates
 		method := methods.GetUpdates{
-			Offset: 32,
+			Offset: bot.updateOffset,
 			Limit:  5,
 		}
-		method.CallMethod(bot.GetBotURL())
+		var updates tgtype.Updates
+		updates = method.CallMethod(bot.GetBotURL()).(tgtype.Updates)
+
+		//Parse the new updates
+		for _, u := range updates.Updates {
+			switch {
+			case u.Message != nil:
+				if bot.OnMessage != nil {
+					bot.OnMessage(u.Message)
+				}
+			case u.EditedMessage != nil:
+				if bot.OnMessageEdited != nil {
+					bot.OnMessageEdited(u.EditedMessage)
+				}
+			case u.ChannelPost != nil:
+				if bot.OnChannelPost != nil {
+					bot.OnChannelPost(u.ChannelPost)
+				}
+			case u.EditedChannelPost != nil:
+				if bot.onChannelPostEdited != nil {
+					bot.onChannelPostEdited(u.EditedChannelPost)
+				}
+			default:
+				fmt.Println("Recieved an unrecognized update!")
+			}
+
+			if u.UpdateID >= bot.updateOffset {
+				bot.updateOffset = u.UpdateID + 1
+			}
+
+			fmt.Println("Swallowed update:", u.UpdateID)
+		}
 	}
 }
