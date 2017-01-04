@@ -2,7 +2,7 @@ package tgtype
 
 // Update - This object represents incomming update.
 type Update struct {
-	UpdateID          int32    `json:"update_id"`
+	UpdateID          int64    `json:"update_id"`
 	Message           *Message `json:"message,omitempty"`
 	EditedMessage     *Message `json:"edited_message,omitempty"`
 	ChannelPost       *Message `json:"channel_post,omitempty"`

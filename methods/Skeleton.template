@@ -1,0 +1,23 @@
+package methods
+
+// TGTYPE - A simple method for testing your bot's auth token. Requires no parameters. Returns basic information about the bot in form of a User object.
+type TGTYPE struct {
+}
+
+// GetName - returns the telegram calling name of the method
+func (method TGTYPE) GetName() string {
+	return "TGMETHOD"
+}
+
+// CallMethod - executes method returns update
+// Returns TGRETURN
+func (method *TGTYPE) CallMethod(botURL string) tgtype.TGType {
+	//Call the message under the hood
+	result := callMethod(botURL, method).Result
+
+	//Decode the result
+	var user tgtype.TGRETURN
+	json.Unmarshal([]byte(result), &user)
+
+	return user
+}

@@ -2,7 +2,7 @@ package tgtype
 
 // Chat - This object represents a chat.
 type Chat struct {
-	ID                          int32  `json:"id"`
+	ID                          int64  `json:"id"`
 	TypeString                  string `json:"type"`
 	Title                       string `json:"title, omitempty"`
 	Username                    string `json:"username, omitempty"`

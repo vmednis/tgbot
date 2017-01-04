@@ -17,6 +17,7 @@ func (method GetUpdates) GetName() string {
 }
 
 // CallMethod - executes method returns update
+// Returns Updates
 func (method *GetUpdates) CallMethod(botURL string) tgtype.TGType {
 	//Call the message under the hood
 	result := callMethod(botURL, method).Result

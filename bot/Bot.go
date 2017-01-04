@@ -14,7 +14,7 @@ type Bot struct {
 	OnMessage           func(*tgtype.Message)
 	OnMessageEdited     func(*tgtype.Message)
 	OnChannelPost       func(*tgtype.Message)
-	onChannelPostEdited func(*tgtype.Message)
+	OnChannelPostEdited func(*tgtype.Message)
 	APIKey              string
 	running             bool
 	updateOffset        int32
@@ -57,8 +57,8 @@ func (bot *Bot) RunBot() {
 					bot.OnChannelPost(u.ChannelPost)
 				}
 			case u.EditedChannelPost != nil:
-				if bot.onChannelPostEdited != nil {
-					bot.onChannelPostEdited(u.EditedChannelPost)
+				if bot.OnChannelPostEdited != nil {
+					bot.OnChannelPostEdited(u.EditedChannelPost)
 				}
 			default:
 				fmt.Println("Recieved an unrecognized update!")
