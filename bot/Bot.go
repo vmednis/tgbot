@@ -17,7 +17,7 @@ type Bot struct {
 	OnChannelPostEdited func(*tgtype.Message)
 	APIKey              string
 	running             bool
-	updateOffset        int32
+	updateOffset        int64
 }
 
 // GetBotURL - returns a telegram api call url only lacking method
@@ -37,6 +37,7 @@ func (bot *Bot) RunBot() {
 		method := methods.GetUpdates{
 			Offset: bot.updateOffset,
 			Limit:  5,
+			Timeout: 60,
 		}
 		var updates tgtype.Updates
 		updates = method.CallMethod(bot.GetBotURL()).(tgtype.Updates)

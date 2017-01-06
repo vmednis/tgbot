@@ -5,9 +5,9 @@ import "encoding/json"
 
 // GetUpdates - Use this method to receive incoming updates using long polling (wiki). An Array of Update objects is returned.
 type GetUpdates struct {
-	Offset         int32    `json:"offset,omitempty"`
-	Limit          int32    `json:"limit,omitempty"`
-	Timeout        int32    `json:"timeout,omitempty"`
+	Offset         int64    `json:"offset,omitempty"`
+	Limit          int64    `json:"limit,omitempty"`
+	Timeout        int64    `json:"timeout,omitempty"`
 	AllowedUpdates []string `json:"allowed_udpdates,omitempty"`
 }
 

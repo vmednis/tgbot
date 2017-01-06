@@ -10,7 +10,7 @@ type SendMessage struct {
 	ParseMode             string      `json:"parse_mode,omitempty"`
 	DisableWebPagePreview bool        `json:"disable_web_page_preview,omitempty"`
 	DisableNotification   bool        `json:"disable_notification,omitempty"`
-	ReplyToMessageID      int32       `json:"reply_to_message_id,omitempty"`
+	ReplyToMessageID      int64       `json:"reply_to_message_id,omitempty"`
 }
 
 // GetName - returns the telegram calling name of the method

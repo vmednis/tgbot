@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strings"
 	"tgbot/tgtype"
+	"time"
 )
 
 // Method a telegram method
@@ -33,7 +34,10 @@ func callMethod(botURL string, method Method) MethodResponse {
 	url := fmt.Sprintf("%v%v", botURL, method.GetName())
 
 	//Call the method
-	resp, err := http.Post(url, "application/json", strings.NewReader(string(requestBody)))
+	cl := http.Client{
+		Timeout: time.Duration(61 * time.Second),
+	}
+	resp, err := cl.Post(url, "application/json", strings.NewReader(string(requestBody)))
 	if err != nil {
 		fmt.Println("Error getting update: ", err)
 	} else {
