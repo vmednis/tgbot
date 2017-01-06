@@ -35,8 +35,8 @@ func (bot *Bot) RunBot() {
 	for {
 		//Request the new updates
 		method := methods.GetUpdates{
-			Offset: bot.updateOffset,
-			Limit:  5,
+			Offset:  bot.updateOffset,
+			Limit:   5,
 			Timeout: 60,
 		}
 		var updates tgtype.Updates
@@ -68,8 +68,6 @@ func (bot *Bot) RunBot() {
 			if u.UpdateID >= bot.updateOffset {
 				bot.updateOffset = u.UpdateID + 1
 			}
-
-			fmt.Println("Swallowed update:", u.UpdateID)
 		}
 	}
 }
