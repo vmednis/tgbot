@@ -2,6 +2,7 @@ package bot
 
 import (
 	"fmt"
+	"tgbot/commandprocessor"
 	"tgbot/methods"
 	"tgbot/tgtype"
 )
@@ -15,6 +16,7 @@ type Bot struct {
 	OnMessageEdited     func(*tgtype.Message)
 	OnChannelPost       func(*tgtype.Message)
 	OnChannelPostEdited func(*tgtype.Message)
+	CommandProcessor    commandprocessor.CommandPorcessor
 	APIKey              string
 	running             bool
 	updateOffset        int64
@@ -46,8 +48,10 @@ func (bot *Bot) RunBot() {
 		for _, u := range updates.Updates {
 			switch {
 			case u.Message != nil:
-				if bot.OnMessage != nil {
-					bot.OnMessage(u.Message)
+				if !bot.CommandProcessor.ExecuteCommand(*u.Message) {
+					if bot.OnMessage != nil {
+						bot.OnMessage(u.Message)
+					}
 				}
 			case u.EditedMessage != nil:
 				if bot.OnMessageEdited != nil {
