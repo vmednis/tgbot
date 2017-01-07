@@ -19,6 +19,10 @@ type CommandPorcessor struct {
 
 // RegisterCommad registers command for recieving callbacks
 func (cp *CommandPorcessor) RegisterCommad(command string, callback func(arguments string, m tgtype.Message)) {
+	if cp.callbacks == nil {
+		cp.callbacks = make(map[string]func(string, tgtype.Message))
+	}
+
 	if cp.IgnoreCommandCase {
 		cp.callbacks[strings.ToLower(command)] = callback
 	} else {
@@ -44,8 +48,8 @@ func (cp *CommandPorcessor) ExecuteCommand(m tgtype.Message) bool {
 	//Check if the command is meant for this bot
 	botIdentifierIndex := strings.Index(m.Text, "@")
 	if botIdentifierIndex != -1 {
-		botIdentifier := command[botIdentifierIndex+1:]
-		command = command[:botIdentifierIndex]
+		botIdentifier := command[botIdentifierIndex:]
+		command = command[:botIdentifierIndex-1]
 
 		if strings.ToLower(botIdentifier) != strings.ToLower(cp.BotName) {
 			//This command is not meant for this bot
@@ -65,7 +69,7 @@ func (cp *CommandPorcessor) ExecuteCommand(m tgtype.Message) bool {
 	callback := cp.callbacks[command]
 
 	if callback == nil {
-		if cp.OnUnregisteredTragetedCommand != nil {
+		if (botIdentifierIndex != -1 || m.Chat.TypeString == "private") && cp.OnUnregisteredTragetedCommand != nil {
 			cp.OnUnregisteredTragetedCommand(command, arguments, m)
 		}
 
