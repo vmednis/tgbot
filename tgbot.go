@@ -5,6 +5,7 @@ import "tgbot/tgtype"
 import "fmt"
 import "tgbot/methods"
 
+//Very basic, barebones example bot.
 func main() {
     mednisBot := bot.Bot{APIKey: "APIkey:here"}
 
