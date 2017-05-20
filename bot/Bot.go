@@ -2,9 +2,10 @@ package bot
 
 import (
 	"fmt"
-	"tgbot/commandprocessor"
-	"tgbot/methods"
-	"tgbot/tgtype"
+
+	"github.com/vmednis/tgbot/commandprocessor"
+	"github.com/vmednis/tgbot/methods"
+	"github.com/vmednis/tgbot/tgtype"
 )
 
 // BotAPIURL the URL bots use to communicate with telegram

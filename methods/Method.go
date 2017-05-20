@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
-	"tgbot/tgtype"
 	"time"
+
+	"github.com/vmednis/tgbot/tgtype"
 )
 
 // Method a telegram method

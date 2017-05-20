@@ -2,7 +2,8 @@ package methods
 
 import (
 	"encoding/json"
-	"tgbot/tgtype"
+
+	"github.com/vmednis/tgbot/tgtype"
 )
 
 // GetMe - A simple method for testing your bot's auth token. Requires no parameters. Returns basic information about the bot in form of a User object.

@@ -2,7 +2,8 @@ package commandprocessor
 
 import (
 	"strings"
-	"tgbot/tgtype"
+
+	"github.com/vmednis/tgbot/tgtype"
 )
 
 // CommandPorcessor - Processes incomming commands, runs callbacks for them
