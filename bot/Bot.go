@@ -49,7 +49,7 @@ func (bot *Bot) RunBot() {
 		for _, u := range updates.Updates {
 			switch {
 			case u.Message != nil:
-				if !bot.CommandProcessor.ExecuteCommand(*u.Message) {
+				if !bot.CommandProcessor.ExecuteCommand(*u.Message) { //If the message isn't a command used up by the command processor
 					if bot.OnMessage != nil {
 						bot.OnMessage(u.Message)
 					}
@@ -67,7 +67,7 @@ func (bot *Bot) RunBot() {
 					bot.OnChannelPostEdited(u.EditedChannelPost)
 				}
 			default:
-				fmt.Println("Recieved an unrecognized update!")
+				fmt.Println("Receieved an unrecognized update!")
 			}
 
 			if u.UpdateID >= bot.updateOffset {
