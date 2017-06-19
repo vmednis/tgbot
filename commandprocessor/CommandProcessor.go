@@ -46,7 +46,7 @@ func (cp *CommandPorcessor) ExecuteCommand(m tgtype.Message) bool {
 	arguments := m.Text[commandSplitPoint:]
 
 	//Check if the command is meant for this bot
-	botIdentifierIndex := strings.Index(m.Text, "@")
+	botIdentifierIndex := strings.Index(command, "@")
 	if botIdentifierIndex != -1 {
 		botIdentifier := command[botIdentifierIndex:]
 		command = command[:botIdentifierIndex-1]
