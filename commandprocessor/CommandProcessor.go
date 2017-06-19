@@ -2,7 +2,8 @@ package commandprocessor
 
 import (
 	"strings"
-	"tgbot/tgtype"
+
+	"github.com/vmednis/tgbot/tgtype"
 )
 
 // CommandPorcessor - Processes incomming commands, runs callbacks for them
@@ -17,8 +18,8 @@ type CommandPorcessor struct {
 	callbacks map[string]func(arguments string, m tgtype.Message)
 }
 
-// RegisterCommad registers command for recieving callbacks
-func (cp *CommandPorcessor) RegisterCommad(command string, callback func(arguments string, m tgtype.Message)) {
+// RegisterCommand registers command for recieving callbacks
+func (cp *CommandPorcessor) RegisterCommand(command string, callback func(arguments string, m tgtype.Message)) {
 	if cp.callbacks == nil {
 		cp.callbacks = make(map[string]func(string, tgtype.Message))
 	}

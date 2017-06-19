@@ -1,7 +1,10 @@
 package methods
 
-import "encoding/json"
-import "tgbot/tgtype"
+import (
+	"encoding/json"
+
+	"github.com/vmednis/tgbot/tgtype"
+)
 
 // SendMessage - A simple method for testing your bot's auth token. Requires no parameters. Returns basic information about the bot in form of a User object.
 type SendMessage struct {

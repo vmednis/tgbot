@@ -1,7 +1,10 @@
 package methods
 
-import "tgbot/tgtype"
-import "encoding/json"
+import (
+	"encoding/json"
+
+	"github.com/vmednis/tgbot/tgtype"
+)
 
 // GetUpdates - Use this method to receive incoming updates using long polling (wiki). An Array of Update objects is returned.
 type GetUpdates struct {
